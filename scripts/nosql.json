@@ -1,0 +1,23 @@
+//servicio
+{
+    "_id" : {},
+    "id_tipo_user" : "1",
+    "certifiaciones" : {
+        "certificacion_1" : "id_certificaciones",
+        "certificacion_2" : "id_certificaciones"
+    }
+    "id_cultivo" : "id_cultivio" // solo cuando es servicio de agricultor
+}
+
+//certificaciones
+{
+    "_id" : {},
+    "nombre" : "AWS Solutions Architect",
+    "descripcion" : "Certificación para arquitectos de soluciones en AWS",
+}
+
+//cultivo
+{
+    "_id" : {},
+    "nombre" : ""
+}
