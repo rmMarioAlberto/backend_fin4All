@@ -111,6 +111,39 @@ export class CompraService {
     });
   }
 
+  async findByOferta(ofertaId: number) {
+    // validar existencia de la oferta
+    const oferta = await this.prisma.oferta_cultivo.findUnique({ where: { id: ofertaId } });
+    if (!oferta) throw new NotFoundException('Oferta de cultivo no encontrada');
+
+    return this.prisma.compra.findMany({
+      where: { id_oferta_cultivo: ofertaId },
+      include: {
+        usuario: { select: { username: true } },
+        oferta_cultivo: { select: { id: true, cantidad_disponible: true, precio_tonelada: true, entidad_federativa: true } },
+        oferta_logistica: { select: { origen: true, destino: true, costo_total: true } }
+      },
+      orderBy: { fecha_compra: 'desc' }
+    });
+  }
+
+  async findByProductor(productorId: number) {
+    // Obtener las ofertas del productor
+    const ofertas = await this.prisma.oferta_cultivo.findMany({ where: { id_user: productorId }, select: { id: true } });
+    const ids = ofertas.map(o => o.id);
+    if (ids.length === 0) return [];
+
+    return this.prisma.compra.findMany({
+      where: { id_oferta_cultivo: { in: ids } },
+      include: {
+        usuario: { select: { username: true } },
+        oferta_cultivo: { select: { id: true, cantidad_disponible: true, precio_tonelada: true, entidad_federativa: true } },
+        oferta_logistica: { select: { origen: true, destino: true, costo_total: true } }
+      },
+      orderBy: { fecha_compra: 'desc' }
+    });
+  }
+
   async aprobarCompra(compraId: number, userId: number, tipoAprobacion: TipoAprobacion) {
     // Obtener la compra con todas sus relaciones
     const compra = await this.prisma.compra.findUnique({
