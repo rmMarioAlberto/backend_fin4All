@@ -3,14 +3,14 @@ import { RegistroUsuarioDto, UploadDocsDto } from './dto/user.dto';
 import { PrismaServicePostgres } from 'src/prisma/prismaPosgres.service';
 import bcrypt from 'bcrypt';
 import { PrismaServiceMongo } from 'src/prisma/prismaMongo.service';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+//import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly prismaPostgress: PrismaServicePostgres,
     private readonly prismaMongo: PrismaServiceMongo,
-    private readonly cloud: CloudinaryService,
+  //  private readonly cloud: CloudinaryService,
   ) {}
 
   async userRegistro(dto: RegistroUsuarioDto) {
@@ -38,43 +38,43 @@ export class UserService {
     return newUser;
   }
 
-  async uploadDocs(dto: UploadDocsDto) {
-    const { nameEmpresa, docs,idUsuario } = dto;
+  // async uploadDocs(dto: UploadDocsDto) {
+  //   const { nameEmpresa, docs,idUsuario } = dto;
 
-    const findUser = await this.prismaPostgress.usuario.findUnique({where : {id : idUsuario}})
+  //   const findUser = await this.prismaPostgress.usuario.findUnique({where : {id : idUsuario}})
 
-    if (findUser?.status != 1) {
-      throw new BadRequestException('El usuario ya esta validado')
-    }
+  //   if (findUser?.status != 1) {
+  //     throw new BadRequestException('El usuario ya esta validado')
+  //   }
 
-    const uploadResults = await Promise.all(
-      docs.map(async (doc) => {
-        const uploadRes = await this.cloud.uploadBase64(doc.fileBase64, {
-          folder: `docs/${nameEmpresa}`,
-          public_id: doc.name.replace(/\s+/g, '_'),
-          resource_type: 'auto',
-        });
-        return {
-          name: doc.name,
-          cloudinary_id: uploadRes.public_id,
-          url: uploadRes.secure_url,
-        };
-      }),
-    );
+  //   const uploadResults = await Promise.all(
+  //     docs.map(async (doc) => {
+  //       const uploadRes = await this.cloud.uploadBase64(doc.fileBase64, {
+  //         folder: `docs/${nameEmpresa}`,
+  //         public_id: doc.name.replace(/\s+/g, '_'),
+  //         resource_type: 'auto',
+  //       });
+  //       return {
+  //         name: doc.name,
+  //         cloudinary_id: uploadRes.public_id,
+  //         url: uploadRes.secure_url,
+  //       };
+  //     }),
+  //   );
 
-    const documento = await this.prismaMongo.documentos.create({
-      data: {
-        id_usuario : idUsuario.toString(),
-        nombreEmpresa: nameEmpresa,
-        id_cloudinary: uploadResults,
-      },
-    });
+  //   const documento = await this.prismaMongo.documentos.create({
+  //     data: {
+  //       id_usuario : idUsuario.toString(),
+  //       nombreEmpresa: nameEmpresa,
+  //       id_cloudinary: uploadResults,
+  //     },
+  //   });
 
-    return {
-      message: 'Documentos subidos y registrados correctamente',
-      data: documento,
-    };
-  }
+  //   return {
+  //     message: 'Documentos subidos y registrados correctamente',
+  //     data: documento,
+  //   };
+  // }
 
 }
 
