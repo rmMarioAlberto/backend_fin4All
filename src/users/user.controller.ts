@@ -21,14 +21,14 @@ export class UserController {
         
     }
 
-    // @Roles('admin', 'auditor')
-    // @UseGuards(AuthGuard,RolesGuard)
-    // @Post('docsValidacion')
-    // @HttpCode(HttpStatus.CREATED)
-    // async uploadDocs(@Body() dto : UploadDocsDto){
-    //     await this.userService.uploadDocs(dto);
+    @Roles('admin', 'auditor')
+    @UseGuards(AuthGuard,RolesGuard)
+    @Post('docsValidacion')
+    @HttpCode(HttpStatus.CREATED)
+    async uploadDocs(@Body() dto : UploadDocsDto){
+        await this.userService.uploadDocs(dto);
 
-    //     return {statusCode : HttpStatus.CREATED, message : "documentos cargados correctamente"}
-    // }
+        return {statusCode : HttpStatus.CREATED, message : "documentos cargados correctamente"}
+    }
 
 }

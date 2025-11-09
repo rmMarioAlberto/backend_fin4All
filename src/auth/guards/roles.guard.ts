@@ -31,12 +31,12 @@ export class RolesGuard implements CanActivate {
       1: 'agricultor',
       2: 'logistica',
       3: 'distribuidor',
-      4: "admin",
-      5: "auditor",
-      6: "mediador"
+      4: 'admin',
+      5: 'auditor',
+      6: 'mediador',
     };
 
-    const userRole = roleMap[user.tipoUsuario];    
+    const userRole = roleMap[user.tipoUsuario];
 
     if (!requiredRoles.includes(userRole)) {
       throw new ForbiddenException('Access denied: insufficient permissions');
