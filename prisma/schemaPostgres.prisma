@@ -27,30 +27,32 @@ model tipo_user {
 }
 
 model usuario {
-  id               Int                @id @default(autoincrement())
-  email            String             @unique @db.VarChar(100)
-  password         String             @db.VarChar(255)
-  id_tipo_user     Int
-  status           Int                @default(1)
-  created_at       DateTime?          @default(now()) @db.Timestamp(6)
-  username         String             @db.VarChar(50)
-  compra           compra[]
-  oferta_cultivo   oferta_cultivo[]
-  oferta_logistica oferta_logistica[]
-  sesion           sesion[]
-  tipo_user        tipo_user          @relation(fields: [id_tipo_user], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_tipo_user")
+  id                    Int                @id @default(autoincrement())
+  email                 String             @unique @db.VarChar(100)
+  password              String             @db.VarChar(255)
+  id_tipo_user          Int
+  status                Int                @default(1)
+  created_at            DateTime?          @default(now()) @db.Timestamp(6)
+  username              String             @db.VarChar(50)
+  compra                compra[]
+  oferta_cultivo        oferta_cultivo[]
+  oferta_logistica      oferta_logistica[]
+  ofertas_distribuidor  oferta_logistica[] @relation("distribuidor")
+  sesion                sesion[]
+  tipo_user             tipo_user          @relation(fields: [id_tipo_user], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_tipo_user")
 }
 
 model oferta_cultivo {
-  id                  Int       @id @default(autoincrement())
+  id                  Int                @id @default(autoincrement())
   id_user             Int
   id_cultivo          Int
-  cantidad_disponible Decimal   @db.Decimal(10, 2)
-  precio_tonelada     Decimal   @db.Decimal(10, 2)
-  fecha_publicacion   DateTime? @default(now()) @db.Timestamp(6)
-  entidad_federativa  String    @default("N/D") @db.VarChar(100)
+  cantidad_disponible Decimal            @db.Decimal(10, 2)
+  precio_tonelada     Decimal            @db.Decimal(10, 2)
+  fecha_publicacion   DateTime?          @default(now()) @db.Timestamp(6)
+  entidad_federativa  String             @default("N/D") @db.VarChar(100)
   compra              compra[]
-  usuario             usuario   @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_oferta_cultivo_user")
+  oferta_logistica   oferta_logistica[]
+  usuario             usuario            @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_oferta_cultivo_user")
 }
 
 model cultivo {
@@ -74,12 +76,18 @@ model compra {
 }
 
 model oferta_logistica {
-  id                Int       @id @default(autoincrement())
+  id                Int            @id @default(autoincrement())
   id_user           Int
-  precio_tonelada   Decimal   @db.Decimal(10, 2)
-  ubicacion         String    @db.VarChar(255)
-  precio_km         Decimal   @db.Decimal(10, 2)
-  fecha_publicacion DateTime? @default(now()) @db.Timestamp(6)
+  id_oferta_cultivo Int
+  id_distribuidor   Int?
+  origen            String         @db.VarChar(255)
+  destino           String         @db.VarChar(255)
+  distancia_km      Decimal        @db.Decimal(10, 2)
+  costo_total       Decimal        @db.Decimal(10, 2)
+  fecha_publicacion DateTime?      @default(now()) @db.Timestamp(6)
+  estado            String?        @default("disponible") @db.VarChar(50)
   compra            compra[]
-  usuario           usuario   @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_oferta_logistica_user")
+  usuario           usuario        @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_oferta_logistica_user")
+  distribuidor      usuario?       @relation("distribuidor", fields: [id_distribuidor], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_oferta_logistica_distribuidor")
+  oferta_cultivo    oferta_cultivo @relation(fields: [id_oferta_cultivo], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_oferta_logistica_oferta_cultivo")
 }

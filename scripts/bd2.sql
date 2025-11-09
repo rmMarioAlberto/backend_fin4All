@@ -1,6 +1,21 @@
 -- Active: 1762640731795@@ep-gentle-frog-adm0pw2p-pooler.c-2.us-east-1.aws.neon.tech@5432@neondb
 #usuario
--- Tabla para tipos de usuarios 
+-- Actualizaciones a la tabla oferta_logistica
+ALTER TABLE oferta_logistica 
+DROP COLUMN precio_tonelada,
+DROP COLUMN ubicacion,
+DROP COLUMN precio_km;
+
+ALTER TABLE oferta_logistica 
+ADD COLUMN id_oferta_cultivo INT NOT NULL,
+ADD COLUMN id_distribuidor INT,
+ADD COLUMN origen VARCHAR(255) NOT NULL,
+ADD COLUMN destino VARCHAR(255) NOT NULL,
+ADD COLUMN distancia_km DECIMAL(10,2) NOT NULL,
+ADD COLUMN costo_total DECIMAL(10,2) NOT NULL,
+ADD COLUMN estado VARCHAR(50) DEFAULT 'disponible',
+ADD CONSTRAINT fk_oferta_logistica_oferta_cultivo FOREIGN KEY (id_oferta_cultivo) REFERENCES oferta_cultivo(id) ON DELETE CASCADE,
+ADD CONSTRAINT fk_oferta_logistica_distribuidor FOREIGN KEY (id_distribuidor) REFERENCES usuario(id) ON DELETE SET NULL; 
 CREATE TABLE tipo_user (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL, 

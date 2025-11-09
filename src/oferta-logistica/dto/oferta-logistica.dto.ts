@@ -1,26 +1,36 @@
-import { IsNotEmpty, IsNumber, Min, IsString } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsNumber, Min, IsString, IsOptional } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateOfertaLogisticaDto {
-  @ApiProperty({ example: 1, description: 'Id del servicio/logística (referencia a un tipo de servicio si aplica)' })
+  @ApiProperty({ example: 1, description: 'ID de la oferta de cultivo a la que se hace la oferta logística' })
   @IsNumber()
   @IsNotEmpty()
-  id_servicio: number;
+  id_oferta_cultivo: number;
 
-  @ApiProperty({ example: 1200.0, description: 'Precio por tonelada ofrecido por la logística' })
+  @ApiPropertyOptional({ example: 1, description: 'ID del distribuidor al que va dirigida la oferta (opcional)' })
   @IsNumber()
-  @IsNotEmpty()
-  @Min(0)
-  precio_tonelada: number;
+  @IsOptional()
+  id_distribuidor?: number;
 
-  @ApiProperty({ example: 'Ciudad de destino, Calle 123', description: 'Ubicación o descripción del punto de recolección/entrega' })
+  @ApiProperty({ example: 'Mérida, Yucatán', description: 'Ubicación de origen del transporte' })
   @IsString()
   @IsNotEmpty()
-  ubicacion: string;
+  origen: string;
 
-  @ApiProperty({ example: 2.5, description: 'Precio por kilómetro' })
+  @ApiProperty({ example: 'CDMX', description: 'Ubicación de destino del transporte' })
+  @IsString()
+  @IsNotEmpty()
+  destino: string;
+
+  @ApiProperty({ example: 1250.5, description: 'Distancia en kilómetros del recorrido' })
   @IsNumber()
   @IsNotEmpty()
   @Min(0)
-  precio_km: number;
+  distancia_km: number;
+
+  @ApiProperty({ example: 25000.0, description: 'Costo total del servicio de transporte' })
+  @IsNumber()
+  @IsNotEmpty()
+  @Min(0)
+  costo_total: number;
 }
