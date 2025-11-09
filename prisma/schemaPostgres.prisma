@@ -62,11 +62,7 @@ model cultivo {
 }
 
 model compra {
-<<<<<<< HEAD
   id                      Int               @id @default(autoincrement())
-=======
-  id                       Int               @id @default(autoincrement())
->>>>>>> 4e394da (WS de compra)
   id_comprador            Int
   id_oferta_cultivo       Int
   id_oferta_logistica     Int?
@@ -74,7 +70,6 @@ model compra {
   precio_total            Decimal           @db.Decimal(10, 2)
   fecha_compra            DateTime?         @default(now()) @db.Timestamp(6)
   estado                  String            @default("pendiente") @db.VarChar(50)
-<<<<<<< HEAD
   aprobacion_distribuidor Boolean?          @default(false)
   aprobacion_logistica    Boolean?
   aprobacion_productor    Boolean?          @default(false)
@@ -84,17 +79,6 @@ model compra {
   usuario                 usuario           @relation(fields: [id_comprador], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_compra_comprador")
   oferta_cultivo          oferta_cultivo    @relation(fields: [id_oferta_cultivo], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_compra_oferta_cultivo")
   oferta_logistica        oferta_logistica? @relation(fields: [id_oferta_logistica], references: [id], onUpdate: NoAction, map: "fk_compra_oferta_logistica")
-=======
-  aprobacion_distribuidor Boolean           @default(false)
-  aprobacion_logistica    Boolean?
-  aprobacion_productor    Boolean           @default(false)
-  fecha_entrega          DateTime?          @db.Timestamp(6)
-  fecha_pago_logistica   DateTime?          @db.Timestamp(6)
-  fecha_pago_productor   DateTime?          @db.Timestamp(6)
-  usuario                usuario           @relation(fields: [id_comprador], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_compra_comprador")
-  oferta_cultivo         oferta_cultivo    @relation(fields: [id_oferta_cultivo], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_compra_oferta_cultivo")
-  oferta_logistica       oferta_logistica? @relation(fields: [id_oferta_logistica], references: [id], onUpdate: NoAction, map: "fk_compra_oferta_logistica")
->>>>>>> 4e394da (WS de compra)
 }
 
 model oferta_logistica {
