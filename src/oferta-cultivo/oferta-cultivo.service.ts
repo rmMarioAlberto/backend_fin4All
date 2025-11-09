@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PrismaServicePostgres } from "src/prisma/prismaPosgres.service";
+import { PrismaServicePostgres } from "../prisma/prismaPosgres.service";
 import { CreateOfertaCultivoDto } from './dto/oferta-cultivo.dto';
 
 @Injectable()
