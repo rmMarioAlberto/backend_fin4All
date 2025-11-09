@@ -9,6 +9,8 @@ import { CultivoModule } from './cultivo/cultivo.module';
 import { OfertaLogisticaModule } from './oferta-logistica/oferta-logistica.module';
 import { CompraModule } from './compra/compra.module';
 
+import { AuditoriaModule } from './auditoria/auditoria.module';
+
 @Module({
   imports: [
     AccessModule,
@@ -17,6 +19,7 @@ import { CompraModule } from './compra/compra.module';
     CultivoModule,
     OfertaLogisticaModule,
     CompraModule,
+    AuditoriaModule,
     ScheduleModule.forRoot()
   ],
 })

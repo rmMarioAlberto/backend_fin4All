@@ -174,6 +174,22 @@ export class CompraController {
     return this.compraService.findByUser(id);
   }
 
+  @Get('oferta/:id')
+  @ApiOperation({ summary: 'Listar compras de una oferta específica', description: 'Obtiene las compras realizadas sobre una oferta de cultivo específica' })
+  @ApiParam({ name: 'id', description: 'ID de la oferta de cultivo', example: 1 })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Listado de compras sobre la oferta' })
+  async findByOferta(@Param('id', ParseIntPipe) id: number) {
+    return this.compraService.findByOferta(id);
+  }
+
+  @Get('productor/mis-ventas')
+  @Roles('agricultor')
+  @ApiOperation({ summary: 'Listar compras sobre las ofertas del productor autenticado' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Listado de compras sobre las ofertas del productor' })
+  async findByProductor(@Request() req) {
+    return this.compraService.findByProductor(req.user.id);
+  }
+
   @Put(':id/aprobar')
   @UseGuards(AuthGuard, RolesGuard)
   @ApiOperation({
