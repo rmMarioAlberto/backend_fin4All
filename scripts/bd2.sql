@@ -1,5 +1,18 @@
 -- Active: 1762640731795@@ep-gentle-frog-adm0pw2p-pooler.c-2.us-east-1.aws.neon.tech@5432@neondb
 #usuario
+-- Actualizaciones a la tabla compra
+ALTER TABLE compra
+ADD COLUMN aprobacion_distribuidor BOOLEAN DEFAULT false,
+ADD COLUMN aprobacion_logistica BOOLEAN,
+ADD COLUMN aprobacion_productor BOOLEAN DEFAULT false,
+ADD COLUMN fecha_entrega TIMESTAMP,
+ADD COLUMN fecha_pago_logistica TIMESTAMP,
+ADD COLUMN fecha_pago_productor TIMESTAMP;
+
+ALTER TABLE compra
+ALTER COLUMN estado SET DEFAULT 'pendiente',
+ALTER COLUMN estado SET NOT NULL;
+
 -- Actualizaciones a la tabla oferta_logistica
 ALTER TABLE oferta_logistica 
 DROP COLUMN precio_tonelada,
@@ -16,6 +29,8 @@ ADD COLUMN costo_total DECIMAL(10,2) NOT NULL,
 ADD COLUMN estado VARCHAR(50) DEFAULT 'disponible',
 ADD CONSTRAINT fk_oferta_logistica_oferta_cultivo FOREIGN KEY (id_oferta_cultivo) REFERENCES oferta_cultivo(id) ON DELETE CASCADE,
 ADD CONSTRAINT fk_oferta_logistica_distribuidor FOREIGN KEY (id_distribuidor) REFERENCES usuario(id) ON DELETE SET NULL; 
+
+
 CREATE TABLE tipo_user (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL, 
