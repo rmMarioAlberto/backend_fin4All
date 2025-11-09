@@ -1,5 +1,5 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from "@nestjs/common";
-import { RegistroUsuarioDto, UploadDocsDto } from "./dto/user.dto";
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from "@nestjs/common";
+import { RegistroUsuarioDto, UploadDocsDto, ValidateUser } from "./dto/user.dto";
 import { UserService } from "./user.service";
 import { Roles } from "../auth/decorator/roles.decorator";
 import { RolesGuard } from "../auth/guards/roles.guard";
@@ -29,6 +29,26 @@ export class UserController {
         await this.userService.uploadDocs(dto);
 
         return {statusCode : HttpStatus.CREATED, message : "documentos cargados correctamente"}
+    }
+
+    @Roles('admin','auditor')
+    @UseGuards(AuthGuard,RolesGuard)
+    @Get('getUsersValidar')
+    @HttpCode(HttpStatus.OK)
+    async getUsersValidar(){
+        const users = await this.userService.getUsersValidar();
+
+        return {statusCode : HttpStatus.OK, message : 'usuarios reclectados', data : users}
+    }
+
+    @Roles('admin','auditor')
+    @UseGuards(AuthGuard,RolesGuard)
+    @Post('validarUser')
+    @HttpCode(HttpStatus.OK)
+    async validateUser (@Body() dto: ValidateUser){
+        await this.userService.validateUser(dto);
+
+        return {statusCode : HttpStatus.OK, message: 'Usuario actualizado correctamente'}
     }
 
 }

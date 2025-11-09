@@ -25,8 +25,7 @@ export class RegistroUsuarioDto {
   password: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  id_tipo_user: number;
+  @IsNumber()  id_tipo_user: number;
 }
 
 class DocItemDto {
@@ -52,4 +51,11 @@ export class UploadDocsDto {
   @ValidateNested({ each: true })
   @Type(() => DocItemDto)
   docs: DocItemDto[];
+}
+
+export class ValidateUser{
+  @IsNumber()
+  @Type(() => Number)
+  @IsNotEmpty()
+  idUser : number
 }

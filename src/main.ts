@@ -5,15 +5,15 @@ import { config } from 'dotenv';
 import { AllExceptionsFilter } from './utils/exceptions.filter';
 import { RateLimitMiddleware } from './utils/rate-limit.middleware';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as bodyParser from 'body-parser';
 
 config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  
   const corsOrigins = process.env.CORS_ORIGINS
-    ? process.env.CORS_ORIGINS.split(',').map(s => s.trim())
+    ? process.env.CORS_ORIGINS.split(',').map((s) => s.trim())
     : ['http://localhost:5173'];
 
   app.enableCors({
@@ -45,6 +45,9 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter());
 
   app.use(new RateLimitMiddleware().use);
+
+  app.use(bodyParser.json({ limit: '20mb' }));
+  app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
 
   await app.listen(process.env.PORT ?? 3000);
 
