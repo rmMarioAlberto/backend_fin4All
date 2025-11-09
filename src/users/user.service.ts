@@ -138,6 +138,7 @@ export class UserService {
           id_usuario: idUsuario.toString(),
           nombreEmpresa: nameEmpresa,
           id_cloudinary: uploadResults,
+          createdAt : new Date()
         },
       });
 

@@ -86,7 +86,7 @@ export class ChatService {
     const nuevoMensaje = {
       remitenteId: remitenteId.toString(),
       contenido,
-      fechaEnvio: new Date(),
+      fechaEnvio: new Date().toISOString(),
     };
 
     if (chat) {
@@ -106,6 +106,8 @@ export class ChatService {
           idUsuarioPropietario: idUsuarioPropietario.toString(),
           idUsuarioCliente: idUsuarioCliente.toString(),
           mensajes: [nuevoMensaje],
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
         },
       });
     }
