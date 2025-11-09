@@ -4,11 +4,15 @@ import { CorsMiddleware } from './utils/cors.middleware';
 import { RateLimitMiddleware } from './utils/rate-limit.middleware';
 import { ScheduleModule } from '@nestjs/schedule';
 import { UserModule } from './users/user.module';
+import { OfertaCultivoModule } from './oferta-cultivo/oferta-cultivo.module';
+import { CultivoModule } from './cultivo/cultivo.module';
 
 @Module({
   imports: [
     AccessModule,
     UserModule,
+    OfertaCultivoModule,
+    CultivoModule,
     ScheduleModule.forRoot()
   ],
 })
