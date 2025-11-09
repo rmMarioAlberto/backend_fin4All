@@ -32,7 +32,8 @@ export class OfertaCultivoService {
                 id_cultivo: createOfertaDto.id_cultivo,
                 cantidad_disponible: createOfertaDto.cantidad_disponible,
                 precio_tonelada: createOfertaDto.precio_tonelada,
-            }
+                entidad_federativa: createOfertaDto.entidad_federativa,
+            },
         });
     }
 

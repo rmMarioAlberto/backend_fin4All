@@ -34,6 +34,7 @@ export class OfertaCultivoController {
         id_cultivo: 1,
         cantidad_disponible: 100.0,
         precio_tonelada: 1500.0,
+        entidad_federativa: 'Jalisco'
       },
     },
   })
@@ -47,6 +48,7 @@ export class OfertaCultivoController {
         id_cultivo: 1,
         cantidad_disponible: 100.0,
         precio_tonelada: 1500.0,
+            entidad_federativa: 'Jalisco',
         fecha_publicacion: '2025-11-08T00:00:00Z',
       },
     },
@@ -78,6 +80,7 @@ export class OfertaCultivoController {
           id_cultivo: 1,
           cantidad_disponible: 100.0,
           precio_tonelada: 1500.0,
+              entidad_federativa: 'Jalisco',
           fecha_publicacion: '2025-11-08T00:00:00Z',
           cultivo: { id: 1, nombre: 'Maíz' },
           usuario: { id: 2, username: 'agri1' },
@@ -102,6 +105,7 @@ export class OfertaCultivoController {
           id_cultivo: 1,
           cantidad_disponible: 100.0,
           precio_tonelada: 1500.0,
+              entidad_federativa: 'Jalisco',
           fecha_publicacion: '2025-11-08T00:00:00Z',
           cultivo: { id: 1, nombre: 'Maíz' },
         },

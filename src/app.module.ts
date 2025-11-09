@@ -6,6 +6,8 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { UserModule } from './users/user.module';
 import { OfertaCultivoModule } from './oferta-cultivo/oferta-cultivo.module';
 import { CultivoModule } from './cultivo/cultivo.module';
+import { OfertaLogisticaModule } from './oferta-logistica/oferta-logistica.module';
+import { CompraModule } from './compra/compra.module';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { CultivoModule } from './cultivo/cultivo.module';
     UserModule,
     OfertaCultivoModule,
     CultivoModule,
+    OfertaLogisticaModule,
+    CompraModule,
     ScheduleModule.forRoot()
   ],
 })

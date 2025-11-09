@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, Min } from 'class-validator';
+import { IsNotEmpty, IsNumber, Min, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateOfertaCultivoDto {
@@ -18,4 +18,9 @@ export class CreateOfertaCultivoDto {
     @IsNotEmpty()
     @Min(0)
     precio_tonelada: number;
+
+    @ApiProperty({ example: 'Jalisco', description: 'Entidad federativa donde aplica la oferta' })
+    @IsString()
+    @IsNotEmpty()
+    entidad_federativa: string;
 }

@@ -53,6 +53,7 @@ CREATE TABLE oferta_cultivo (
     id SERIAL PRIMARY KEY,
     id_user INT NOT NULL,
     id_cultivo INT NOT NULL,
+    entidad_federativa VARCHAR(100) NOT NULL,
     cantidad_disponible DECIMAL(10,2) NOT NULL,
     precio_tonelada DECIMAL(10,2) NOT NULL,
     fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
