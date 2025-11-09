@@ -34,7 +34,9 @@ model usuario {
   status               Int                @default(1)
   created_at           DateTime?          @default(now()) @db.Timestamp(6)
   username             String             @db.VarChar(50)
+  auditoria            auditoria[]
   compra               compra[]
+  creditos             creditos[]
   oferta_cultivo       oferta_cultivo[]
   ofertas_distribuidor oferta_logistica[] @relation("distribuidor")
   oferta_logistica     oferta_logistica[]
@@ -96,4 +98,23 @@ model oferta_logistica {
   distribuidor      usuario?       @relation("distribuidor", fields: [id_distribuidor], references: [id], onUpdate: NoAction, map: "fk_oferta_logistica_distribuidor")
   oferta_cultivo    oferta_cultivo @relation(fields: [id_oferta_cultivo], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_oferta_logistica_oferta_cultivo")
   usuario           usuario        @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_oferta_logistica_user")
+}
+
+model auditoria {
+  id              Int       @id @default(autoincrement())
+  id_user         Int
+  tipo_auditoria  String    @db.VarChar(100)
+  fecha_auditoria DateTime? @default(now()) @db.Timestamp(6)
+  observaciones   String?
+  usuario         usuario   @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_auditoria_user")
+}
+
+model creditos {
+  id                  Int       @id @default(autoincrement())
+  id_usuario          Int
+  monto               Decimal   @db.Decimal(10, 2)
+  descripcion_credito String    @db.VarChar(255)
+  created_at          DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime? @default(now()) @db.Timestamptz(6)
+  usuario             usuario   @relation(fields: [id_usuario], references: [id], onDelete: Cascade)
 }
