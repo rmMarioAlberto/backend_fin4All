@@ -8,6 +8,7 @@ import { OfertaCultivoModule } from './oferta-cultivo/oferta-cultivo.module';
 import { CultivoModule } from './cultivo/cultivo.module';
 import { OfertaLogisticaModule } from './oferta-logistica/oferta-logistica.module';
 import { CompraModule } from './compra/compra.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CompraModule } from './compra/compra.module';
     CultivoModule,
     OfertaLogisticaModule,
     CompraModule,
+    ChatModule,
     ScheduleModule.forRoot()
   ],
 })
