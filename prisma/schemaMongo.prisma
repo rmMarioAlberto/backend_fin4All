@@ -9,3 +9,10 @@ datasource db {
   url      = env("DATABASE_URL_MONGO")
 }
 
+model Documentos {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  id_usuario     String
+  nombreEmpresa  String
+  id_cloudinary  Json
+  createdAt      DateTime @default(now())
+}

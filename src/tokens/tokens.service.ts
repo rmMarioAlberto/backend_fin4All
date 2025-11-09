@@ -27,7 +27,7 @@ export class TokensService {
     const payload = {
       id: user.id, 
       username: user.nombre ?? 'Sin nombre',  
-      tipoUsuario: user.tipo_usuario,  
+      tipoUsuario: user.id_tipo_user,  
     };
 
     return this.signToken(payload, this.accessSecret, '15m');
@@ -41,7 +41,7 @@ export class TokensService {
     const payload = {
       id: user.id,  
       username: user.nombre ?? 'Sin nombre',  
-      tipoUsuario: user.tipo_usuario,  
+      tipoUsuario: user.id_tipo_user,  
     };
 
     return this.signToken(payload, this.refreshSecret, '30m');

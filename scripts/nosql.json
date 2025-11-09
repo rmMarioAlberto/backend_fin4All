@@ -21,3 +21,12 @@
     "_id" : {},
     "nombre" : ""
 }
+
+//documentos
+{
+    "_id" : "_id",
+    "id_usuario" : "1",
+    "id_cloudinary" : {},
+    "nombreEmpresa" : ""
+}
+

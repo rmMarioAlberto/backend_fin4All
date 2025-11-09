@@ -28,7 +28,7 @@ export class RolesGuard implements CanActivate {
     }
 
     const roleMap: Record<number, string> = {
-      1: 'agricultos',
+      1: 'agricultor',
       2: 'logistica',
       3: 'distribuidor',
       4: "admin",
@@ -36,7 +36,7 @@ export class RolesGuard implements CanActivate {
       6: "mediador"
     };
 
-    const userRole = roleMap[user.tipoUsuario];
+    const userRole = roleMap[user.tipoUsuario];    
 
     if (!requiredRoles.includes(userRole)) {
       throw new ForbiddenException('Access denied: insufficient permissions');

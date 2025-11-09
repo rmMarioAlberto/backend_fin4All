@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaServicePostgres } from '../prisma/prismaPosgres.service';
 import { AccessLoginDto } from './dto/access.dto';
 import * as bcrypt from 'bcrypt';
@@ -29,6 +29,10 @@ export class AccessService {
       throw new UnauthorizedException('Credenciales inválidas');
     }
 
+    if(findUser.status == 0){
+      throw new ForbiddenException('El usuario está inhabilitado. Contacte al administrador.')
+    }
+
     const isPasswordValid = await bcrypt.compare(
       userLogin.contra,
       findUser.password,
@@ -48,6 +52,7 @@ export class AccessService {
       id: findUser.id,
       username: findUser.username,
       email: findUser.email,
+      status : findUser.status,
       id_tipo_user: findUser.tipo_user,
     };
 

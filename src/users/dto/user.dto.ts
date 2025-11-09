@@ -1,9 +1,12 @@
+import { Type } from 'class-transformer';
 import {
+  IsArray,
   IsEmail,
   IsNotEmpty,
   IsNumber,
   IsString,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
 
 export class RegistroUsuarioDto {
@@ -24,4 +27,29 @@ export class RegistroUsuarioDto {
   @IsNotEmpty()
   @IsNumber()
   id_tipo_user: number;
+}
+
+class DocItemDto {
+  @IsNotEmpty()
+  @IsString()
+  name: string; 
+
+  @IsNotEmpty()
+  @IsString()
+  fileBase64: string; 
+}
+
+export class UploadDocsDto {
+  @IsNotEmpty()
+  @IsString()
+  nameEmpresa: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  idUsuario : number
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => DocItemDto)
+  docs: DocItemDto[];
 }
