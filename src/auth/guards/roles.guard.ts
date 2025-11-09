@@ -28,9 +28,12 @@ export class RolesGuard implements CanActivate {
     }
 
     const roleMap: Record<number, string> = {
-      1: 'user',
-      2: 'admin',
-      3: 'iot',
+      1: 'agricultos',
+      2: 'logistica',
+      3: 'distribuidor',
+      4: "admin",
+      5: "auditor",
+      6: "mediador"
     };
 
     const userRole = roleMap[user.tipoUsuario];
