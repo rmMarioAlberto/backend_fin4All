@@ -32,42 +32,53 @@ CREATE TABLE sesion (
     CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
+-- Tabla de cultivos
+CREATE TABLE cultivo (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT
+);
 
 
+CREATE TABLE certificacion_user (
+    id SERIAL PRIMARY KEY,
+    id_user INT NOT NULL,
+    id_servicio INT NOT NULL,
+    fecha_validacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_vencimiento TIMESTAMP NOT NULL,
+    CONSTRAINT fk_certificacion_user FOREIGN KEY (id_user) REFERENCES usuario(id) ON DELETE CASCADE
+);
 
-CREATE TABLE certifiacion_user (
-    id,
-    id_user,
-    id_servicio,
-    fecha_validacion,
-    fecha_vencimiento,
-)
+CREATE TABLE oferta_cultivo (
+    id SERIAL PRIMARY KEY,
+    id_user INT NOT NULL,
+    id_cultivo INT NOT NULL,
+    cantidad_disponible DECIMAL(10,2) NOT NULL,
+    precio_tonelada DECIMAL(10,2) NOT NULL,
+    fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_oferta_cultivo_user FOREIGN KEY (id_user) REFERENCES usuario(id) ON DELETE CASCADE
+);
 
+CREATE TABLE oferta_logistica (
+    id SERIAL PRIMARY KEY,
+    id_user INT NOT NULL,
+    precio_tonelada DECIMAL(10,2) NOT NULL,
+    ubicacion VARCHAR(255) NOT NULL,
+    precio_km DECIMAL(10,2) NOT NULL,
+    fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_oferta_logistica_user FOREIGN KEY (id_user) REFERENCES usuario(id) ON DELETE CASCADE
+);
 
-create table oferta_cultivo {
-    id,
-    id_user,
-    id_cultivo,
-    cantidad_disponible,
-    precio_tonelada,
-    fecha_publicacion
-}
-
-create table ofeta_logistica{
-    id,
-    id_user,
-    precio_tonelada,
-    ubiacion,
-    precio_km,
-    fecha_publicacion
-}
-
-create table compra{
-    id_comprador,
-    id_oferta_cultivo,
-    id_ofeta_logistica,
-    cantidad_cultivo,
-    precio_cultivo,
-    
-
-}
+CREATE TABLE compra (
+    id SERIAL PRIMARY KEY,
+    id_comprador INT NOT NULL,
+    id_oferta_cultivo INT NOT NULL,
+    id_oferta_logistica INT,
+    cantidad_cultivo DECIMAL(10,2) NOT NULL,
+    precio_total DECIMAL(10,2) NOT NULL,
+    fecha_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    estado VARCHAR(50) DEFAULT 'pendiente',
+    CONSTRAINT fk_compra_comprador FOREIGN KEY (id_comprador) REFERENCES usuario(id) ON DELETE CASCADE,
+    CONSTRAINT fk_compra_oferta_cultivo FOREIGN KEY (id_oferta_cultivo) REFERENCES oferta_cultivo(id) ON DELETE CASCADE,
+    CONSTRAINT fk_compra_oferta_logistica FOREIGN KEY (id_oferta_logistica) REFERENCES oferta_logistica(id) ON DELETE SET NULL
+);

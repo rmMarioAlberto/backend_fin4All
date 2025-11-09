@@ -28,7 +28,7 @@ export class RolesGuard implements CanActivate {
     }
 
     const roleMap: Record<number, string> = {
-      1: 'agricultos',
+      1: 'agricultor',
       2: 'logistica',
       3: 'distribuidor',
       4: "admin",
