@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { AddMessageDto, GetChat } from './dto/chat.dto';
-import { PrismaServicePostgres } from 'src/prisma/prismaPosgres.service';
-import { PrismaServiceMongo } from 'src/prisma/prismaMongo.service';
+import { PrismaServicePostgres } from '../prisma/prismaPosgres.service';
+import { PrismaServiceMongo } from '../prisma/prismaMongo.service';
 
 @Injectable()
 export class ChatService {
