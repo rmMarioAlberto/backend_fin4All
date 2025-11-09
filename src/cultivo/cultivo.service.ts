@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaServicePostgres } from 'src/prisma/prismaPosgres.service';
+import { PrismaServicePostgres } from '../prisma/prismaPosgres.service';
 import { CreateCultivoDto } from './dto/cultivo.dto';
 
 @Injectable()
