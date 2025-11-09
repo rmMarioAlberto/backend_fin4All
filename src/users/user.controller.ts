@@ -1,9 +1,9 @@
 import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from "@nestjs/common";
 import { RegistroUsuarioDto, UploadDocsDto } from "./dto/user.dto";
 import { UserService } from "./user.service";
-import { Roles } from "src/auth/decorator/roles.decorator";
-import { RolesGuard } from "src/auth/guards/roles.guard";
-import { AuthGuard } from "src/auth/guards/auth.guard";
+import { Roles } from "../auth/decorator/roles.decorator";
+import { RolesGuard } from "../auth/guards/roles.guard";
+import { AuthGuard } from "../auth/guards/auth.guard";
 
 @Controller('usuario')
 export class UserController {

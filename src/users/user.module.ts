@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { UserController } from "./user.controller";
-import { PrismaPostgresModule } from "src/prisma/prismaPostgres.module";
+import { PrismaPostgresModule } from "../prisma/prismaPostgres.module";
 import { UserService } from "./user.service";
-import { PrismaMongoModule } from "src/prisma/prismaMongo.module";
-import { CloudinaryModule } from "src/cloudinary/cloudinary.module";
-import { AuthModule } from "src/auth/auth.module";
-import { TokensModule } from "src/tokens/tokens.module";
+import { PrismaMongoModule } from "../prisma/prismaMongo.module";
+import { CloudinaryModule } from "../cloudinary/cloudinary.module";
+import { AuthModule } from "../auth/auth.module";
+import { TokensModule } from "../tokens/tokens.module";
 
 @Module({
     controllers : [UserController],

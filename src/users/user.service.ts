@@ -1,9 +1,9 @@
 import { BadRequestException, ConflictException, HttpStatus, Injectable } from '@nestjs/common';
 import { RegistroUsuarioDto, UploadDocsDto } from './dto/user.dto';
-import { PrismaServicePostgres } from 'src/prisma/prismaPosgres.service';
+import { PrismaServicePostgres } from '../prisma/prismaPosgres.service';
 import bcrypt from 'bcrypt';
-import { PrismaServiceMongo } from 'src/prisma/prismaMongo.service';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { PrismaServiceMongo } from '../prisma/prismaMongo.service';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 
 @Injectable()
 export class UserService {
