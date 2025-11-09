@@ -39,7 +39,7 @@ export class OfertaCultivoService {
     async getOfertasCultivo() {
         const ofertas = await this.prisma.oferta_cultivo.findMany({
             include: {
-                usuario: true
+                usuario: { select: { username: true } }
             }
         });
 
@@ -55,7 +55,7 @@ export class OfertaCultivoService {
     async getOfertasCultivoByUser(userId: number) {
         const ofertas = await this.prisma.oferta_cultivo.findMany({
             where: { id_user: userId },
-            include: { usuario: true }
+            include: { usuario: { select: { username: true } } }
         });
 
         const cultivoIds = Array.from(new Set(ofertas.map(o => o.id_cultivo)));
