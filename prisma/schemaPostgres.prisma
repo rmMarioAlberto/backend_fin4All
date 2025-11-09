@@ -42,7 +42,6 @@ model usuario {
   oferta_logistica     oferta_logistica[]
   sesion               sesion[]
   tipo_user            tipo_user          @relation(fields: [id_tipo_user], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_tipo_user")
-  auditorias           auditoria[]
 }
 
 model oferta_cultivo {
