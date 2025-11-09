@@ -21,7 +21,6 @@ export class UserController {
         
     }
 
-    @Roles('admin', 'auditor')
     @UseGuards(AuthGuard,RolesGuard)
     @Post('docsValidacion')
     @HttpCode(HttpStatus.CREATED)
